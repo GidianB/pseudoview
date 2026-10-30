@@ -5,9 +5,15 @@
   "scripts": {
     "test": "node --liftoff-only --test test/*.test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["pseudocode", "codebase", "documentation", "tree-sitter", "claude-code", "agent-skill", "cli"],
+  "author": "Gidian",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GidianB/pseudoview.git"
+  },
+  "homepage": "https://github.com/GidianB/pseudoview#readme",
+  "bugs": "https://github.com/GidianB/pseudoview/issues",
   "type": "module",
   "dependencies": {
     "tree-sitter-wasms": "^0.1.13",

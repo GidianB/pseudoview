@@ -25,19 +25,27 @@ JavaScript, TypeScript (with TSX), Python, Go, Rust, Java, C#, C, C++, Ruby, PHP
 
 ## Install
 
-pseudoview needs Node.js 20 or later.
+pseudoview has two parts: the command, and a skill that tells your agent how to use it. Install both. The command
+needs Node.js 20 or later.
 
 ```
-git clone <this repository> pseudoview
+npm install -g pseudoview
+npx skills add GidianB/pseudoview -g
+```
+
+The first line installs two commands that do the same thing: `pseudoview` and the shorter `psv`. The second
+installs the skill for your agent, such as Claude Code, Codex or Cursor, in every project.
+
+To install from source instead:
+
+```
+git clone https://github.com/GidianB/pseudoview
 cd pseudoview
 npm install
 npm link
 ```
 
-This installs two commands that do the same thing: `pseudoview` and the shorter `psv`.
-
-Then make the skill available to your agent. For Claude Code, link or copy `skills/pseudoview` into
-`~/.claude/skills/pseudoview`.
+Then link or copy `skills/pseudoview` into your agent's skills folder, such as `~/.claude/skills/pseudoview`.
 
 ## Use
 
