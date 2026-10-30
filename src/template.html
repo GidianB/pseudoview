@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>pseudoview</title>
+<style>
+  :root{color-scheme:dark;--bg:#0e0e0f;--fg:#ececec;--fg2:#c9c9ce;--mut:#8d8d93;--line:#4a4a50;--hov:#1c1c1f;
+    --blue:#5b8cff;--amber:#e0a33a;
+    --sans:system-ui,"Segoe UI Variable Text","Segoe UI",-apple-system,sans-serif;--mono:"Cascadia Mono",ui-monospace,Consolas,"SF Mono",monospace;
+    --ease:cubic-bezier(.16,1,.3,1)}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--fg);font:14px/1.5 var(--sans);caret-color:var(--blue)}
+  ::selection{background:var(--blue);color:#fff}
+  *{scrollbar-width:thin;scrollbar-color:#2a2a2d transparent}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+  code,pre,input{font-family:var(--mono);font-variant-ligatures:none}
+  h2,h3,p{margin:0}
+
+  /* the page never scrolls: the sidebar and each column scroll on their own, so opening a function moves nothing else */
+  .app{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:100vh}
+  .side-on .app{grid-template-columns:240px minmax(0,1fr)}
+  header{grid-column:1/-1;display:flex;align-items:center;gap:24px;padding:18px 48px 0 48px;font-size:13px;color:var(--mut);min-width:0}
+  .crumbs{display:flex;align-items:center;gap:8px;min-width:0;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+  .crumbs button:hover{color:var(--fg)}
+  .crumbs .proj,.crumbs .cur{color:var(--fg);font-weight:600}
+  .crumbs .sep{color:var(--line)}
+  .tools{margin-left:auto;display:flex;gap:20px;flex:none}
+  .tools button:hover,.tools button[aria-pressed="true"]{color:var(--fg)}
+
+  aside{display:none;flex-direction:column;min-height:0;padding:20px 0 0 32px}
+  .side-on aside{display:flex}
+  .filter{margin:0 8px 8px 0;padding:6px 0;border:0;border-bottom:1px solid var(--line);background:none;color:var(--fg);font:13px var(--sans)}
+  .filter::placeholder{color:var(--mut)}
+  .filter:focus{outline:0;border-bottom-color:var(--blue)}
+  .list{overflow-y:auto;padding:4px 8px 32px 0}
+  .grp{font-size:12px;color:var(--mut);margin:16px 0 4px;overflow-wrap:anywhere}
+  .item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;font:12.5px var(--mono);color:var(--fg2);padding:3px 0;overflow-wrap:anywhere}
+  .item:hover,.item.on{color:var(--fg)}
+  .item.on{font-weight:600}
+  .item.ovr{font:600 13px var(--sans);color:var(--fg)}
+  .dot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+  .dot.old{background:var(--amber)}
+  .dot.todo{background:none;box-shadow:inset 0 0 0 1px var(--mut)}
+
+  /* the left margin is masked, so a column scrolled out of view never shows a few letters at the edge */
+  .strip{--pad:24px;position:relative;display:flex;overflow-x:auto;overflow-y:hidden;padding:0 var(--pad);
+    -webkit-mask-image:linear-gradient(90deg,transparent var(--pad),#000 var(--pad));mask-image:linear-gradient(90deg,transparent var(--pad),#000 var(--pad))}
+  .colm{flex:0 0 clamp(380px,calc((100vw - 140px) / 3),540px);display:flex;flex-direction:column;min-height:0;overflow-y:auto;padding:36px 24px 56px}
+  .side-on .colm{flex-basis:clamp(360px,calc((100vw - 380px) / 3),540px)}
+  .colm.ov{flex-basis:clamp(400px,calc((100vw - 140px) / 2.6),620px)}
+  .colm.new{animation:enter .18s var(--ease)}
+  @keyframes enter{from{opacity:0;transform:translateX(8px)}}
+  @media (prefers-reduced-motion:reduce){.colm.new{animation:none}}
+  .hd{display:flex;align-items:center;gap:10px;min-width:0}
+  .hd h3{font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25;overflow-wrap:anywhere}
+  .ctl{margin-left:auto;display:flex;gap:2px;color:var(--mut);opacity:0;transition:opacity .15s}
+  .colm:hover .ctl,.ctl:focus-within{opacity:1}
+  @media (hover:none){.ctl{opacity:1}}
+  .ib{display:grid;place-items:center;width:26px;height:26px;border-radius:5px}
+  .ib:hover{color:var(--fg);background:var(--hov)}
+  .ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .loc{margin-top:4px;font-size:12px;color:var(--mut)}
+  .loc a:hover{color:var(--fg)}
+  /* a collapsed column is a thin strip with its name written down it; clicking it opens the column again */
+  .colm.min{flex:0 0 36px;padding:40px 0;align-items:center;cursor:pointer;overflow:hidden;color:var(--mut)}
+  .colm.min:hover,.colm.min:focus-visible{color:var(--fg)}
+  .colm.min:focus-visible{outline:0}
+  .colm.min:focus-visible h3{outline:2px solid var(--blue);outline-offset:4px;border-radius:3px}
+  .colm.min .hd h3{writing-mode:vertical-rl;font-size:12px;font-weight:400;letter-spacing:.02em;white-space:nowrap}
+  .colm.min .hd .dot,.colm.min .ctl,.colm.min .bd,.colm.min .loc{display:none}
+
+  .bd{margin-top:16px}
+  .sum{font-size:15px;line-height:1.6;color:var(--fg2);max-width:60ch}
+  .note{margin-top:12px;font-size:13px;color:var(--amber)}
+  .note.todo{color:var(--mut)}
+  .note code{font-size:12px}
+  pre.ps{margin:24px 0 0;font-size:12.5px;line-height:1.7;color:var(--fg2);white-space:pre-wrap;overflow-wrap:anywhere}
+  .ln{display:block}
+  .kw{color:var(--fg);font-weight:600}
+  .cm{color:var(--mut)}
+  a.fn{color:var(--fg);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;cursor:pointer}
+  a.fn:hover{text-decoration-color:var(--fg)}
+  a.fn.open{text-decoration-color:var(--blue);text-decoration-thickness:2px}
+  .rel{margin-top:32px;font-size:13px}
+  .rel h3,.ov h2{font-size:12px;font-weight:500;color:var(--mut);margin:0 0 6px}
+  .rel .row + h3{margin-top:16px}
+  .row{display:flex;gap:12px;align-items:baseline;padding:3px 0}
+  .row a.fn{text-decoration:none;font:12.5px var(--mono);color:var(--fg2);overflow-wrap:anywhere}
+  .row a.fn:hover,.row a.fn.open{color:var(--fg)}
+  .row a.fn.open{font-weight:600}
+  .row .n{margin-left:auto;flex:none;color:var(--mut);font-size:12px;font-variant-numeric:tabular-nums}
+
+  .ov .bd{margin-top:16px}
+  .ov h2{margin-top:32px}
+  .stats{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:12.5px;color:var(--mut)}
+  .stats span{display:inline-flex;align-items:center;gap:6px}
+  .ep{padding:8px 0}
+  .ep b{font:600 12.5px var(--mono)}
+  .ep p{margin-top:2px;color:var(--fg2);font-size:13.5px;max-width:60ch}
+  .chain{margin-top:3px;font-size:12.5px;line-height:1.9;color:var(--mut)}
+  .chain a.fn{font-family:var(--mono)}
+  .step{display:grid;grid-template-columns:22px minmax(0,1fr);padding:7px 0}
+  .step .i{color:var(--mut);font-variant-numeric:tabular-nums;font-size:13px}
+  .step .t{font-weight:600}
+  .step .t a.fn{font:400 12.5px var(--mono);margin-left:6px}
+  .step .d{margin-top:2px;color:var(--fg2);font-size:13.5px;max-width:60ch}
+  .fail{margin-top:4px;font-size:13px;color:var(--fg2)}
+  .fail b{color:var(--fg);font-weight:600}
+  .ov .intro{color:var(--fg2);margin-bottom:6px;max-width:60ch}
+  .g{display:flex;gap:16px;align-items:baseline;padding:6px 0;font-size:13.5px;color:var(--fg2)}
+  .g a.fn{margin-left:auto;flex:none;font:12.5px var(--mono)}
+
+  @media (max-width:760px){
+    header{padding:14px 20px 0;gap:12px}
+    .side-on .app{grid-template-columns:minmax(0,1fr)}
+    aside,.side-on aside{display:none}
+    .tools{display:none}
+    .strip{--pad:8px}
+    .colm,.colm.ov,.side-on .colm{flex-basis:88vw;padding:24px 12px 40px}
+  }
+</style></head><body>
+<div class="app">
+  <header><nav class="crumbs" id="crumbs" aria-label="Open functions"></nav>
+    <span class="tools"><button id="find" title="Filter functions (/)">Find</button><button id="tog" aria-pressed="false" title="Show the function list">Files</button></span></header>
+  <aside><input class="filter" id="filter" placeholder="Filter functions or files" aria-label="Filter functions or files"><div class="list" id="side"></div></aside>
+  <main class="strip" id="strip"></main>
+</div>
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const D = JSON.parse(document.getElementById("data").textContent);
+const F = D.functions, OV = "overview";
+const ids = Object.keys(F);
+const byName = {}, callers = {};
+for (const id of ids) { (byName[F[id].name] ||= []).push(id); for (const c of F[id].calls) (callers[c] ||= []).push(id); }
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const state = f => !f.described ? "todo" : f.described !== f.hash ? "old" : "";
+const STATE_TITLE = { "": "Described", old: "The code changed after this was described", todo: "Not described yet" };
+const dot = f => `<span class="dot ${state(f)}" title="${STATE_TITLE[state(f)]}"></span>`;
+const link = id => F[id] ? `<a class="fn" href="#" data-fn="${esc(id)}">${esc(F[id].qname)}</a>` : "";
+const lines = f => f.end - f.line + 1;
+const ICON = {
+  min: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg>',
+  close: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 4.5 7 7m0-7-7 7"/></svg>',
+};
+// the page sits in OUT/ inside the project, so the project folder is one level up
+const root = location.protocol === "file:" ? decodeURIComponent(new URL("../", location.href).pathname).replace(/\/$/, "") : null;
+const fileLink = f => root ? `<a href="vscode://file${esc(root)}/${esc(f.file)}:${f.line}" title="Open in VS Code">${esc(f.file)}:${f.line}</a>` : `${esc(f.file)}:${f.line}`;
+
+const KW = new Set("IF ELSE FOR EACH IN REPEAT UNTIL WHILE RETURN REQUIRE MATCH ON AND OR NOT TRY CATCH BREAK CONTINUE YIELD AWAIT THROW WITH FAIL".split(" "));
+// Pseudocode to HTML. A word links when it is a function this one calls, or when it is written as a call and
+// only one function in the project has that name.
+function hl(code, f) {
+  const local = {};
+  for (const c of f.calls) local[F[c].name] ??= c;
+  return code.split("\n").map(line => {
+    const ind = line.match(/^ */)[0].length; // hanging indent: a wrapped line stays under its own indentation
+    line = line.slice(ind);
+    let cmt = "";
+    const m = line.startsWith("// ") ? { index: 0 } : /\s{2,}\/\/ /.exec(line);
+    if (m) { cmt = (m.index ? "  " : "") + line.slice(m.index).trimStart(); line = line.slice(0, m.index); }
+    const h = line.replace(/([A-Za-z_$][\w$]*)|([^A-Za-z_$]+)/g, (all, w, other, at) => {
+      if (other) return esc(other);
+      if (KW.has(w)) return `<span class="kw">${w}</span>`;
+      const id = local[w] || (line[at + w.length] === "(" && byName[w]?.length === 1 ? byName[w][0] : null);
+      return id ? `<a class="fn" href="#" data-fn="${esc(id)}">${esc(w)}</a>` : esc(w);
+    });
+    return `<span class="ln" style="padding-left:${ind + 4}ch;text-indent:-4ch">${(h + (cmt ? `<span class="cm">${esc(cmt)}</span>` : "")) || " "}</span>`;
+  }).join("");
+}
+
+function overviewHTML() {
+  const o = D.overview, files = new Set(ids.map(id => F[id].file));
+  const count = s => ids.filter(id => state(F[id]) === s).length;
+  const langs = [...new Set(ids.map(id => F[id].lang))].join(", ");
+  let h = o ? `<p class="sum">${esc(o.summary)}</p>` : `<p class="note todo">No overview yet. Run <code>/pseudoview</code> in this project to write one.</p>`;
+  h += `<div class="stats"><span>${ids.length} functions in ${files.size} files${langs ? ` · ${esc(langs)}` : ""}</span>`
+    + `<span><i class="dot"></i>${count("")} described</span>`
+    + (count("old") ? `<span><i class="dot old"></i>${count("old")} changed since</span>` : "")
+    + (count("todo") ? `<span><i class="dot todo"></i>${count("todo")} not described</span>` : "") + `</div>`;
+  if (o?.entryPoints?.length) h += `<h2>Where to start</h2>` + o.entryPoints.map(e =>
+    `<div class="ep"><b>${esc(e.label)}</b>${e.text ? `<p>${esc(e.text)}</p>` : ""}<div class="chain">${(e.ids || []).map(link).filter(Boolean).join(" → ")}</div></div>`).join("");
+  for (const w of o?.walkthroughs || []) h += `<h2>${esc(w.title)}</h2>${w.intro ? `<p class="intro">${esc(w.intro)}</p>` : ""}` + w.steps.map((s, i) =>
+    `<div class="step"><span class="i">${i + 1}</span><div><div class="t">${esc(s.title)}${s.id && F[s.id] ? link(s.id) : ""}</div>${s.text ? `<p class="d">${esc(s.text)}</p>` : ""}${s.fail ? `<p class="fail"><b>If it fails:</b> ${esc(s.fail)}</p>` : ""}</div></div>`).join("");
+  if (o?.notes?.length) h += `<h2>${esc(o.notesTitle || "Worth knowing")}</h2>` + o.notes.map(n => `<div class="g"><span>${esc(n.text)}</span>${n.id ? link(n.id) : ""}</div>`).join("");
+  return h;
+}
+
+function colHTML(n) {
+  const ctl = `<span class="ctl"><button class="ib" data-min title="Collapse this column" aria-label="Collapse this column">${ICON.min}</button>`
+    + (n === OV ? "" : `<button class="ib" data-close title="Close this column and the ones after it" aria-label="Close this column">${ICON.close}</button>`) + `</span>`;
+  if (n === OV) return `<div class="hd"><h3>Overview</h3>${ctl}</div><div class="bd">${overviewHTML()}</div>`;
+  const f = F[n], st = state(f);
+  const rows = list => list.map(id => `<div class="row">${link(id)}<span class="n">${lines(F[id])} line${lines(F[id]) === 1 ? "" : "s"}</span></div>`).join("");
+  const rel = [["Calls", f.calls], ["Called by", callers[n]]].filter(([, l]) => l?.length).map(([t, l]) => `<h3>${t}</h3>${rows(l)}`).join("");
+  return `<div class="hd">${dot(f)}<h3>${esc(f.qname)}</h3>${ctl}</div>
+    <p class="loc">${fileLink(f)}${(f.tags || []).map(t => ` · ${esc(t)}`).join("")}</p>
+    <div class="bd">${st === "todo" ? `<p class="note todo">Not described yet. Run <code>/pseudoview</code> in this project.</p>`
+      : `<p class="sum">${esc(f.summary)}</p>${st === "old" ? `<p class="note">The code changed after this was written. Run <code>/pseudoview</code> to update it.</p>` : ""}<pre class="ps">${hl(f.pseudocode, f)}</pre>`}
+    ${rel ? `<div class="rel">${rel}</div>` : ""}</div>`;
+}
+
+const strip = document.getElementById("strip"), crumbs = document.getElementById("crumbs");
+const tail = strip.appendChild(document.createElement("div"));
+tail.style.flex = "none";
+let path = [], cols = []; // cols[i] = {n, el}: the column on screen for path[i]
+const crumbName = n => n === OV ? "Overview" : F[n].name;
+// Show path as columns. Columns that stay keep their element and scroll position; only the changed tail is rebuilt.
+function show(p, instant) {
+  let k = 0;
+  while (k < cols.length && k < p.length && cols[k].n === p[k]) k++;
+  cols.splice(k).forEach(c => c.el.remove());
+  for (const n of p.slice(k)) {
+    const el = document.createElement("section");
+    el.className = "colm" + (n === OV ? " ov" : "") + (instant ? "" : " new");
+    el.innerHTML = colHTML(n);
+    strip.insertBefore(el, tail);
+    cols.push({ n, el });
+  }
+  path = p.slice();
+  cols.forEach((c, i) => c.el.querySelectorAll("a.fn").forEach(a => a.classList.toggle("open", a.dataset.fn === path[i + 1])));
+  document.querySelectorAll("[data-root]").forEach(b => b.classList.toggle("on", path.includes(b.dataset.root)));
+  crumbs.innerHTML = `<button class="proj" data-crumb="-1">${esc(D.project)}</button>` + path.map((n, i) =>
+    `<span class="sep">/</span><button data-crumb="${i}"${i === path.length - 1 ? ' class="cur" aria-current="page"' : ""}>${esc(crumbName(n))}</button>`).join("");
+  crumbs.scrollLeft = crumbs.scrollWidth;
+  fit(instant);
+}
+
+// Show the newest column and as many of its parents as fit, starting at a column's edge: with no boxes around the
+// columns, a column cut through its text looks broken
+function fit(instant) {
+  const pad = parseFloat(getComputedStyle(strip).paddingLeft), last = cols[cols.length - 1].el, end = last.offsetLeft + last.offsetWidth;
+  const first = cols.find(c => end - c.el.offsetLeft + 2 * pad <= strip.clientWidth)?.el || last;
+  const left = Math.max(0, first.offsetLeft - pad);
+  // the empty space after the last column lets the strip scroll that far even when the columns don't fill the screen
+  tail.style.flexBasis = Math.max(0, left + strip.clientWidth - end) + "px";
+  strip.scrollTo({ left, behavior: instant ? "instant" : "smooth" });
+}
+
+// The URL holds the open columns, e.g. #path=overview/src%2Fa.js%3Amain, so back, forward, refresh and links all work.
+const valid = n => n === OV || !!F[n];
+const hashOf = p => "#path=" + p.map(encodeURIComponent).join("/");
+function parse() {
+  const m = location.hash.match(/^#path=(.+)$/);
+  const p = m ? m[1].split("/").map(decodeURIComponent).filter(valid) : [];
+  return p.length ? p : [OV];
+}
+function navigate(p) {
+  if (p.join("\n") === path.join("\n")) return;
+  history.pushState({ p }, "", hashOf(p));
+  show(p);
+}
+addEventListener("popstate", ev => show(ev.state?.p || parse()));
+
+document.title = D.project + " · pseudoview";
+const byFile = {};
+for (const id of ids) (byFile[F[id].file] ||= []).push(id);
+document.getElementById("side").innerHTML = `<button class="item ovr" data-root="${OV}">Overview</button>` +
+  Object.entries(byFile).map(([file, list]) => `<div class="grp" data-grp>${esc(file)}</div>` + list.map(id =>
+    `<button class="item" data-root="${esc(id)}" data-q="${esc((F[id].qname + " " + file).toLowerCase())}">${dot(F[id])}${esc(F[id].qname)}</button>`).join("")).join("");
+const filter = document.getElementById("filter");
+filter.addEventListener("input", () => {
+  const q = filter.value.trim().toLowerCase();
+  let grp = null, any = false;
+  const flush = () => { if (grp) grp.hidden = !any; };
+  for (const el of document.getElementById("side").children) {
+    if (el.hasAttribute("data-grp")) { flush(); grp = el; any = false; }
+    else if (el.dataset.q) { el.hidden = !!q && !el.dataset.q.includes(q); any ||= !el.hidden; }
+  }
+  flush();
+});
+
+// a collapsed column works as a button: Tab reaches it, and Enter or Space opens it
+function setMin(col, on) {
+  col.classList.toggle("min", on);
+  if (on) { col.tabIndex = 0; col.setAttribute("role", "button"); col.setAttribute("aria-label", "Expand " + col.querySelector("h3").textContent); }
+  else { col.removeAttribute("tabindex"); col.removeAttribute("role"); col.removeAttribute("aria-label"); }
+}
+document.addEventListener("keydown", ev => {
+  if ((ev.key === "Enter" || ev.key === " ") && ev.target.matches?.(".colm.min")) { ev.preventDefault(); ev.target.click(); }
+});
+
+document.addEventListener("click", ev => {
+  const c = ev.target.closest("[data-crumb]"); if (c) { const i = +c.dataset.crumb; navigate(i < 0 ? [OV] : path.slice(0, i + 1)); return; }
+  const r = ev.target.closest("[data-root]"); if (r) { navigate([r.dataset.root]); return; }
+  const col = ev.target.closest(".colm"); if (!col) return;
+  // collapsing only changes the view: the column stays in the path, so back, links and the URL are unaffected
+  // focus follows only keyboard use (a click from Enter or Space has detail 0), so mouse users never see a focus ring
+  if (col.classList.contains("min")) { setMin(col, false); col.scrollIntoView({ inline: "nearest", block: "nearest" }); if (!ev.detail) col.querySelector("[data-min]").focus(); return; }
+  if (ev.target.closest("[data-min]")) { setMin(col, true); if (!ev.detail) col.focus(); fit(); return; }
+  const k = cols.findIndex(c => c.el === col);
+  if (ev.target.closest("[data-close]")) { navigate(k > 0 ? path.slice(0, k) : [OV]); return; }
+  const a = ev.target.closest("a.fn"); if (!a) return;
+  ev.preventDefault();
+  navigate([...path.slice(0, k + 1), a.dataset.fn]);
+});
+
+// the function list is hidden by default and remembered across visits; some browsers block storage for local files
+const tog = document.getElementById("tog");
+const setSide = on => {
+  document.body.classList.toggle("side-on", on);
+  tog.setAttribute("aria-pressed", on);
+  tog.title = on ? "Hide the function list" : "Show the function list";
+  try { localStorage.setItem("pseudoview-side", on ? "1" : ""); } catch {}
+};
+tog.addEventListener("click", () => setSide(!document.body.classList.contains("side-on")));
+const find = () => { setSide(true); filter.focus(); filter.select(); };
+document.getElementById("find").addEventListener("click", find);
+addEventListener("keydown", ev => { if (ev.key === "/" && !ev.target.matches("input")) { ev.preventDefault(); find(); } });
+try { setSide(!!localStorage.getItem("pseudoview-side")); } catch {}
+
+{ const p = parse(); history.replaceState({ p }, "", hashOf(p)); show(p, true); }
+</script>
+</body></html>

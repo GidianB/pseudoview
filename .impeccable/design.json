@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T15:35:39.920Z",
+  "title": "Design System: pseudoview",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "#0e0e0f",
+        "oklch": "oklch(16.4% 0.002 286.2)",
+        "cssVar": "--bg",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 286.2)",
+          "oklch(26.4% 0.001 286.2)",
+          "oklch(37.9% 0.002 286.2)",
+          "oklch(49.3% 0.002 286.2)",
+          "oklch(60.7% 0.002 286.2)",
+          "oklch(72.1% 0.002 286.2)",
+          "oklch(83.6% 0.001 286.2)",
+          "oklch(95.0% 0.000 286.2)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#ececec",
+        "oklch": "oklch(94.3% 0.000 89.9)",
+        "cssVar": "--fg",
+        "tonalRamp": [
+          "oklch(15.0% 0.000 89.9)",
+          "oklch(26.4% 0.000 89.9)",
+          "oklch(37.9% 0.000 89.9)",
+          "oklch(49.3% 0.000 89.9)",
+          "oklch(60.7% 0.000 89.9)",
+          "oklch(72.1% 0.000 89.9)",
+          "oklch(83.6% 0.000 89.9)",
+          "oklch(95.0% 0.000 89.9)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#c9c9ce",
+        "oklch": "oklch(83.7% 0.007 286.3)",
+        "cssVar": "--fg2",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 286.3)",
+          "oklch(26.4% 0.005 286.3)",
+          "oklch(37.9% 0.007 286.3)",
+          "oklch(49.3% 0.007 286.3)",
+          "oklch(60.7% 0.007 286.3)",
+          "oklch(72.1% 0.007 286.3)",
+          "oklch(83.6% 0.005 286.3)",
+          "oklch(95.0% 0.001 286.3)"
+        ]
+      },
+      "grey-text": {
+        "role": "neutral",
+        "displayName": "Grey Text",
+        "canonical": "#8d8d93",
+        "oklch": "oklch(64.5% 0.009 286.1)",
+        "cssVar": "--mut",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 286.1)",
+          "oklch(26.4% 0.006 286.1)",
+          "oklch(37.9% 0.009 286.1)",
+          "oklch(49.3% 0.009 286.1)",
+          "oklch(60.7% 0.009 286.1)",
+          "oklch(72.1% 0.009 286.1)",
+          "oklch(83.6% 0.006 286.1)",
+          "oklch(95.0% 0.002 286.1)"
+        ]
+      },
+      "grey-line": {
+        "role": "neutral",
+        "displayName": "Grey Line",
+        "canonical": "#4a4a50",
+        "oklch": "oklch(41.1% 0.010 286.0)",
+        "cssVar": "--line",
+        "tonalRamp": [
+          "oklch(15.0% 0.002 286.0)",
+          "oklch(26.4% 0.007 286.0)",
+          "oklch(37.9% 0.010 286.0)",
+          "oklch(49.3% 0.010 286.0)",
+          "oklch(60.7% 0.010 286.0)",
+          "oklch(72.1% 0.010 286.0)",
+          "oklch(83.6% 0.007 286.0)",
+          "oklch(95.0% 0.002 286.0)"
+        ]
+      },
+      "hover-wash": {
+        "role": "neutral",
+        "displayName": "Hover Wash",
+        "canonical": "#1c1c1f",
+        "oklch": "oklch(22.8% 0.006 285.9)",
+        "cssVar": "--hov",
+        "tonalRamp": [
+          "oklch(15.0% 0.001 285.9)",
+          "oklch(26.4% 0.004 285.9)",
+          "oklch(37.9% 0.006 285.9)",
+          "oklch(49.3% 0.006 285.9)",
+          "oklch(60.7% 0.006 285.9)",
+          "oklch(72.1% 0.006 285.9)",
+          "oklch(83.6% 0.004 285.9)",
+          "oklch(95.0% 0.001 285.9)"
+        ]
+      },
+      "signal-blue": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#5b8cff",
+        "oklch": "oklch(66.2% 0.179 264.6)",
+        "cssVar": "--blue",
+        "tonalRamp": [
+          "oklch(15.0% 0.036 264.6)",
+          "oklch(26.4% 0.117 264.6)",
+          "oklch(37.9% 0.179 264.6)",
+          "oklch(49.3% 0.179 264.6)",
+          "oklch(60.7% 0.179 264.6)",
+          "oklch(72.1% 0.179 264.6)",
+          "oklch(83.6% 0.117 264.6)",
+          "oklch(95.0% 0.036 264.6)"
+        ]
+      },
+      "outdated-amber": {
+        "role": "secondary",
+        "displayName": "Outdated Amber",
+        "canonical": "#e0a33a",
+        "oklch": "oklch(75.6% 0.137 77.0)",
+        "cssVar": "--amber",
+        "tonalRamp": [
+          "oklch(15.0% 0.027 77.0)",
+          "oklch(26.4% 0.090 77.0)",
+          "oklch(37.9% 0.137 77.0)",
+          "oklch(49.3% 0.137 77.0)",
+          "oklch(60.7% 0.137 77.0)",
+          "oklch(72.1% 0.137 77.0)",
+          "oklch(83.6% 0.090 77.0)",
+          "oklch(95.0% 0.027 77.0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "title": {
+        "displayName": "Title",
+        "purpose": "Function name or Overview at the top of each column."
+      },
+      "summary": {
+        "displayName": "Summary",
+        "purpose": "One-paragraph function or project summary, max 60ch, in Soft Ink."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Page default; walkthrough step titles at weight 600."
+      },
+      "body-sm": {
+        "displayName": "Body small",
+        "purpose": "Entry-point text, walkthrough steps and notes in the overview, max 60ch."
+      },
+      "ui": {
+        "displayName": "UI",
+        "purpose": "Header, breadcrumb, Find and Files, filter field, outdated note."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Sentence-case section heads (Calls, Called by, Where to start) in Grey Text."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "File location, sidebar file groups, line counts with tabular figures."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Pseudocode blocks. Ligatures off (font-variant-ligatures: none). Wrapped lines hang under their own indentation."
+      },
+      "identifier": {
+        "displayName": "Identifier",
+        "purpose": "Function names in lists and chains. Weight 600 marks the open one. Ligatures off."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hollow-dot-ring",
+        "value": "inset 0 0 0 1px #8d8d93",
+        "purpose": "Draws the hollow 'not described' status dot. It is a stroke, not elevation. The system has no elevation shadows."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-enter",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "The only custom easing (--ease). Used when a new column enters."
+      },
+      {
+        "name": "column-enter",
+        "value": "180ms, from opacity 0 and translateX(8px)",
+        "purpose": "A newly opened column eases in from the right. Removed under prefers-reduced-motion."
+      },
+      {
+        "name": "control-fade",
+        "value": "opacity 150ms ease",
+        "purpose": "Column controls fade in on column hover or focus-within."
+      },
+      {
+        "name": "strip-scroll",
+        "value": "scrollTo behavior smooth",
+        "purpose": "The strip scrolls to the first column edge that fits. Instant on first load and on back or forward."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow",
+        "value": "760px",
+        "purpose": "At or below: sidebar, Find and Files hidden; columns 88vw; header and strip padding reduced."
+      },
+      {
+        "name": "no-hover",
+        "value": "(hover: none)",
+        "purpose": "Column controls always visible."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "(prefers-reduced-motion: reduce)",
+        "purpose": "No column enter animation."
+      }
+    ],
+    "layout": {
+      "sidebarWidth": "240px",
+      "stripPad": "24px (8px at narrow)",
+      "columnWidth": "clamp(380px, calc((100vw - 140px) / 3), 540px)",
+      "columnWidthWithSidebar": "clamp(360px, calc((100vw - 380px) / 3), 540px)",
+      "overviewWidth": "clamp(400px, calc((100vw - 140px) / 2.6), 620px)",
+      "collapsedWidth": "36px",
+      "narrowColumnWidth": "88vw",
+      "proseMeasure": "60ch"
+    }
+  },
+  "components": [
+    {
+      "name": "Breadcrumb",
+      "kind": "nav",
+      "refersTo": "breadcrumb",
+      "description": "Header trail of open columns; clicking a crumb closes the columns after it.",
+      "html": "<nav class=\"ds-crumbs\" aria-label=\"Open functions\"><button class=\"ds-proj\">keymolt</button><span class=\"ds-sep\">/</span><button>Overview</button><span class=\"ds-sep\">/</span><button>run</button><span class=\"ds-sep\">/</span><button class=\"ds-cur\" aria-current=\"page\">openState</button></nav>",
+      "css": ".ds-crumbs{display:flex;align-items:center;gap:8px;font:13px/1.5 var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif);color:var(--mut, #8d8d93);background:var(--bg, #0e0e0f);padding:18px 24px}.ds-crumbs button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}.ds-crumbs button:hover{color:var(--fg, #ececec)}.ds-crumbs button:focus-visible{outline:2px solid var(--blue, #5b8cff);outline-offset:2px;border-radius:3px;}.ds-crumbs .ds-proj,.ds-crumbs .ds-cur{color:var(--fg, #ececec);font-weight:600}.ds-sep{color:var(--line, #4a4a50)}"
+    },
+    {
+      "name": "Tool Button",
+      "kind": "button",
+      "refersTo": "tool-button",
+      "description": "Text-only header control (Find, Files); Ink on hover and when pressed.",
+      "html": "<span class=\"ds-tools\"><button class=\"ds-tool\">Find</button><button class=\"ds-tool\" aria-pressed=\"true\">Files</button></span>",
+      "css": ".ds-tools{display:inline-flex;gap:20px;background:var(--bg, #0e0e0f);padding:12px 24px}.ds-tool{font:13px/1.5 var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif);color:var(--mut, #8d8d93);background:none;border:0;padding:0;cursor:pointer}.ds-tool:hover,.ds-tool[aria-pressed=\"true\"]{color:var(--fg, #ececec)}.ds-tool:focus-visible{outline:2px solid var(--blue, #5b8cff);outline-offset:2px;border-radius:3px;}"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "26px collapse or close control beside a column title; the only element with a hover fill.",
+      "html": "<span class=\"ds-ibs\"><button class=\"ds-ib\" aria-label=\"Collapse this column\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M10 3.5 5.5 8l4.5 4.5\"/></svg></button><button class=\"ds-ib\" aria-label=\"Close this column\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"m4.5 4.5 7 7m0-7-7 7\"/></svg></button></span>",
+      "css": ".ds-ibs{display:inline-flex;gap:2px;color:var(--mut, #8d8d93);background:var(--bg, #0e0e0f);padding:12px}.ds-ib{display:grid;place-items:center;width:26px;height:26px;border-radius:5px;background:none;border:0;padding:0;color:inherit;cursor:pointer}.ds-ib:hover{color:var(--fg, #ececec);background:var(--hov, #1c1c1f)}.ds-ib:focus-visible{outline:2px solid var(--blue, #5b8cff);outline-offset:2px;border-radius:3px;}.ds-ib svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}"
+    },
+    {
+      "name": "Filter Field",
+      "kind": "input",
+      "refersTo": "filter-input",
+      "description": "Sidebar filter: no box, a 1px bottom rule that turns blue on focus.",
+      "html": "<div class=\"ds-wrap\"><input class=\"ds-filter\" placeholder=\"Filter functions or files\" aria-label=\"Filter functions or files\"></div>",
+      "css": ".ds-wrap{background:var(--bg, #0e0e0f);padding:20px 32px;width:240px}.ds-filter{width:100%;padding:6px 0;border:0;border-bottom:1px solid var(--line, #4a4a50);background:none;color:var(--fg, #ececec);font:13px var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif);caret-color:var(--blue, #5b8cff)}.ds-filter::placeholder{color:var(--mut, #8d8d93)}.ds-filter:focus{outline:0;border-bottom-color:var(--blue, #5b8cff)}"
+    },
+    {
+      "name": "Status Dot",
+      "kind": "chip",
+      "refersTo": "status-dot",
+      "description": "6px status mark: blue described, amber outdated, hollow grey ring not described.",
+      "html": "<div class=\"ds-stats\"><span><i class=\"ds-dot\"></i>61 described</span><span><i class=\"ds-dot ds-old\"></i>5 changed since</span><span><i class=\"ds-dot ds-todo\"></i>2 not described</span></div>",
+      "css": ".ds-stats{display:flex;flex-wrap:wrap;gap:6px 16px;font:12.5px/1.5 var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif);color:var(--mut, #8d8d93);background:var(--bg, #0e0e0f);padding:16px 24px}.ds-stats span{display:inline-flex;align-items:center;gap:6px}.ds-dot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--blue, #5b8cff)}.ds-dot.ds-old{background:var(--amber, #e0a33a)}.ds-dot.ds-todo{background:none;box-shadow:inset 0 0 0 1px var(--mut, #8d8d93)}"
+    },
+    {
+      "name": "Sidebar List",
+      "kind": "nav",
+      "refersTo": "sidebar-item",
+      "description": "File groups in Meta type and function rows in mono, each led by its status dot.",
+      "html": "<div class=\"ds-list\"><button class=\"ds-item ds-ovr\">Overview</button><div class=\"ds-grp\">recipe.go</div><button class=\"ds-item ds-on\"><i class=\"ds-sdot\"></i>runRecipe</button><button class=\"ds-item\"><i class=\"ds-sdot ds-old\"></i>openState</button><button class=\"ds-item\"><i class=\"ds-sdot\"></i>lockDir</button></div>",
+      "css": ".ds-list{background:var(--bg, #0e0e0f);padding:16px 32px;width:240px;font:14px/1.5 var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif)}.ds-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;font:12.5px/1.5 var(--mono, \"Cascadia Mono\", ui-monospace, Consolas, \"SF Mono\", monospace);font-variant-ligatures:none;color:var(--fg2, #c9c9ce);background:none;border:0;padding:3px 0;cursor:pointer}.ds-item:hover,.ds-item.ds-on{color:var(--fg, #ececec)}.ds-item.ds-on{font-weight:600}.ds-item.ds-ovr{font:600 13px/1.5 var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif);color:var(--fg, #ececec)}.ds-item:focus-visible{outline:2px solid var(--blue, #5b8cff);outline-offset:2px;border-radius:3px;}.ds-grp{font-size:12px;color:var(--mut, #8d8d93);margin:16px 0 4px}.ds-sdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--blue, #5b8cff)}.ds-sdot.ds-old{background:var(--amber, #e0a33a)}"
+    },
+    {
+      "name": "Function Column",
+      "kind": "card",
+      "refersTo": "column",
+      "description": "The core unit: dot and title, file location, summary, outdated note and pseudocode. No frame, no fill.",
+      "html": "<section class=\"ds-col\"><div class=\"ds-hd\"><span class=\"ds-cdot ds-old\"></span><h3>openState</h3></div><p class=\"ds-loc\"><a href=\"#\">recipe.go:586</a> · security</p><div class=\"ds-bd\"><p class=\"ds-sum\">Locks a recipe's folder and reads its state file, which records the keys keymolt made.</p><p class=\"ds-note\">The code changed after this was written. Run <code>/pseudoview</code> to update it.</p></div></section>",
+      "css": ".ds-col{background:var(--bg, #0e0e0f);color:var(--fg, #ececec);font:14px/1.5 var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif);padding:36px 24px 56px;width:420px}.ds-hd{display:flex;align-items:center;gap:10px}.ds-hd h3{margin:0;font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.25}.ds-cdot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--blue, #5b8cff)}.ds-cdot.ds-old{background:var(--amber, #e0a33a)}.ds-loc{margin:4px 0 0;font-size:12px;color:var(--mut, #8d8d93)}.ds-loc a{color:inherit;text-decoration:none}.ds-loc a:hover{color:var(--fg, #ececec)}.ds-loc a:focus-visible{outline:2px solid var(--blue, #5b8cff);outline-offset:2px;border-radius:3px;}.ds-bd{margin-top:16px}.ds-sum{margin:0;font-size:15px;line-height:1.6;color:var(--fg2, #c9c9ce);max-width:60ch}.ds-note{margin:12px 0 0;font-size:13px;color:var(--amber, #e0a33a)}.ds-note code{font:12px var(--mono, \"Cascadia Mono\", ui-monospace, Consolas, \"SF Mono\", monospace)}"
+    },
+    {
+      "name": "Pseudocode Block",
+      "kind": "custom",
+      "refersTo": "pseudocode",
+      "description": "Mono pseudocode with bold keywords, grey comments and underlined call links; the open call has a blue underline.",
+      "html": "<pre class=\"ds-ps\"><span class=\"ds-ln\"><a class=\"ds-fn\" href=\"#\">lockDir</a>(folder)</span><span class=\"ds-ln\"><b class=\"ds-kw\">IF</b> the state file exists:</span><span class=\"ds-ln\" style=\"padding-left:8ch;text-indent:-4ch\">read it  <span class=\"ds-cm\">// it may have been edited by hand</span></span><span class=\"ds-ln\"><b class=\"ds-kw\">RETURN</b> the state, with <a class=\"ds-fn ds-open\" href=\"#\">save</a>()</span></pre>",
+      "css": ".ds-ps{margin:0;padding:24px;background:var(--bg, #0e0e0f);font:12.5px/1.7 var(--mono, \"Cascadia Mono\", ui-monospace, Consolas, \"SF Mono\", monospace);font-variant-ligatures:none;color:var(--fg2, #c9c9ce);white-space:pre-wrap}.ds-ln{display:block}.ds-kw{color:var(--fg, #ececec);font-weight:600}.ds-cm{color:var(--mut, #8d8d93)}.ds-fn{color:var(--fg, #ececec);text-decoration:underline;text-decoration-color:var(--line, #4a4a50);text-underline-offset:3px}.ds-fn:hover{text-decoration-color:var(--fg, #ececec)}.ds-fn:focus-visible{outline:2px solid var(--blue, #5b8cff);outline-offset:2px;border-radius:3px;}.ds-fn.ds-open{text-decoration-color:var(--blue, #5b8cff);text-decoration-thickness:2px}"
+    },
+    {
+      "name": "Relation Rows",
+      "kind": "custom",
+      "refersTo": "relation-row",
+      "description": "Calls and Called by: label head, mono names in Soft Ink, line counts right-aligned.",
+      "html": "<div class=\"ds-rel\"><h3>Calls</h3><div class=\"ds-row\"><a href=\"#\" class=\"ds-open\">lockDir</a><span class=\"ds-n\">12 lines</span></div><h3>Called by</h3><div class=\"ds-row\"><a href=\"#\">linkCommand</a><span class=\"ds-n\">23 lines</span></div><div class=\"ds-row\"><a href=\"#\">runRecipe</a><span class=\"ds-n\">208 lines</span></div></div>",
+      "css": ".ds-rel{background:var(--bg, #0e0e0f);padding:24px;width:380px;font:13px/1.5 var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif)}.ds-rel h3{font-size:12px;font-weight:500;color:var(--mut, #8d8d93);margin:0 0 6px}.ds-row+h3{margin-top:16px}.ds-row{display:flex;gap:12px;align-items:baseline;padding:3px 0}.ds-row a{font:12.5px var(--mono, \"Cascadia Mono\", ui-monospace, Consolas, \"SF Mono\", monospace);font-variant-ligatures:none;color:var(--fg2, #c9c9ce);text-decoration:none}.ds-row a:hover,.ds-row a.ds-open{color:var(--fg, #ececec)}.ds-row a.ds-open{font-weight:600}.ds-row a:focus-visible{outline:2px solid var(--blue, #5b8cff);outline-offset:2px;border-radius:3px;}.ds-n{margin-left:auto;color:var(--mut, #8d8d93);font-size:12px;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Collapsed Column",
+      "kind": "custom",
+      "refersTo": "column-collapsed",
+      "description": "36px strip with the function name written down it; acts as a button that reopens the column.",
+      "html": "<div class=\"ds-minwrap\"><section class=\"ds-min\" tabindex=\"0\" role=\"button\" aria-label=\"Expand runRecipe\"><h3>runRecipe</h3></section></div>",
+      "css": ".ds-minwrap{background:var(--bg, #0e0e0f);height:260px;display:flex}.ds-min{flex:0 0 36px;display:flex;flex-direction:column;align-items:center;padding:40px 0;cursor:pointer;color:var(--mut, #8d8d93);font-family:var(--sans, system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", -apple-system, sans-serif)}.ds-min:hover,.ds-min:focus-visible{color:var(--fg, #ececec)}.ds-min:focus-visible{outline:0}.ds-min:focus-visible h3{outline:2px solid var(--blue, #5b8cff);outline-offset:4px;border-radius:3px}.ds-min h3{margin:0;writing-mode:vertical-rl;font-size:12px;font-weight:400;letter-spacing:.02em;white-space:nowrap}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Document",
+    "overview": "pseudoview is a reading page. A developer opens it to learn what a function does without reading the source. Type and space do all the work. Content has no cards, no panel borders, no header bar and no fills. Columns sit on one near-black ground and only space separates them. The pseudocode looks like a typed document, not an editor.\n\nThe page is dense and calm. Most text is 12 to 15px. There are two faces: system sans for prose and one mono for pseudocode and identifiers. The palette is grey. Two hues exist, and each one carries a single meaning. Blue means \"described\" and \"the path you opened\". Amber means \"the code changed after this was written\". Nothing else gets colour, and that includes the pseudocode. Keywords are bold ink and comments are grey.\n\nNavigation is Finder-style. Opening a call adds a column on the right. The page itself never scrolls. Only the sidebar and each column scroll. The strip of columns always stops at a column's left edge, so no column shows cut through its text.",
+    "keyCharacteristics": [
+      "One near-black ground with no surfaces on top of it.",
+      "Two faces: system sans for prose, mono for code and identifiers.",
+      "Colour means state. Blue is described or open, amber is outdated.",
+      "Status is a 6px dot, never a badge.",
+      "Links are underlined in a dark grey, and the open link's underline turns blue.",
+      "Columns are separated only by space, and controls stay hidden until hover."
+    ],
+    "rules": [
+      {
+        "name": "The Two Signals Rule",
+        "body": "Blue and amber are the only hues. Blue means described, open or focused. Amber means outdated. Do not use either for emphasis, branding or decoration, and do not add a third hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight-Not-Hue Rule",
+        "body": "Pseudocode has no syntax colours. Keywords are Ink at weight 600, comments are Grey Text, and calls are underlined Ink. Everything else is Soft Ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Faces Rule",
+        "body": "Sans is for sentences. Mono is for code and for names that exist in code. Never set prose in mono or an identifier in sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Shouting Rule",
+        "body": "Labels are small, grey and sentence case. Hierarchy comes from size steps (12 to 20px) and weight (400, 500, 600), not from caps or tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The Still Page Rule",
+        "body": "The page itself never scrolls or shifts. Only the sidebar and the individual columns scroll.",
+        "section": "layout"
+      },
+      {
+        "name": "The Column Edge Rule",
+        "body": "When the strip moves, it stops at a column's left edge and shows the newest column plus as many parents as fit. Never leave a column cut through its text.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Ground Rule",
+        "body": "Every element sits on the one ground. If something needs to stand out, give it weight, ink or a signal colour, never a shadow or a panel.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** put every element straight on the Ground (#0e0e0f). Separate columns and sections with space only.",
+      "**Do** use Soft Ink (#c9c9ce) for long reading text and Ink (#ececec) for names, keywords, links and active states.",
+      "**Do** keep Signal Blue (#5b8cff) for described, open and focused, and Outdated Amber (#e0a33a) for outdated. Nothing else.",
+      "**Do** show status with the 6px dot, and say outdated in words as well as in amber.",
+      "**Do** mark function links with an underline in Grey Line, 3px offset, and switch the open one to a 2px blue underline.",
+      "**Do** set pseudocode and identifiers in the mono at 12.5px with ligatures off, and prose in system sans.",
+      "**Do** keep prose to 60ch.",
+      "**Do** honour reduced motion and show hidden controls on touch screens."
+    ],
+    "donts": [
+      "**Don't** add cards, panels, borders, fills or shadows around content. The filter field's bottom rule and the icon button's hover wash are the only exceptions, and both belong to controls.",
+      "**Don't** colour pseudocode by syntax. Keywords get weight, comments get grey.",
+      "**Don't** use Grey Line (#4a4a50) for text a reader must read.",
+      "**Don't** add a header bar, a toolbar background or a divider between columns.",
+      "**Don't** let the page scroll, or let opening a column move anything to its left.",
+      "**Don't** use badges or pills for status or tags. Tags are plain text after \" · \".",
+      "**Don't** set labels in uppercase or with wide tracking."
+    ]
+  }
+}

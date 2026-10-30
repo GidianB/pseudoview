@@ -1,0 +1,28 @@
+{
+  "name": "pseudoview",
+  "version": "0.1.0",
+  "description": "Read any codebase as linked pseudocode, one column per function",
+  "scripts": {
+    "test": "node --liftoff-only --test test/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "tree-sitter-wasms": "^0.1.13",
+    "web-tree-sitter": "0.22.6"
+  },
+  "bin": {
+    "pseudoview": "bin/pseudoview.js",
+    "psv": "bin/pseudoview.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin",
+    "src",
+    "skills"
+  ]
+}
